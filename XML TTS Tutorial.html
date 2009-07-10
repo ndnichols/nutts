@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+                      "http://www.w3.org/TR/REC-html40/strict.dtd">
+<HTML DIR="LTR">
+<HEAD>
+<TITLE>XML TTS Tutorial</TITLE>
+<LINK REL="stylesheet" HREF="images/basicIE4.css">
+  <Meta Name="IndexGenerator" Content="HTML Indexer"><Meta Name="Keywords" Content="Text-to-Speech, XML tutorial XML, TTS tutorial">
+  <!-- HTML Indexer V3.0 - Do not edit this comment block.
+    Target="#"
+        IndexAs="Text-to-Speech, XML tutorial",SortAs="Text-to-Speech, XML tutorial",HelpAs="Text-to-Speech, XML tutorial",HelpTitle="XML tutorial"
+        IndexAs="XML, TTS tutorial",SortAs="XML, TTS tutorial",HelpAs="XML, TTS tutorial",HelpTitle="TTS tutorial"
+  HTML Indexer -->
+</HEAD>
+
+<BODY>
+
+<A HREF="http://go.microsoft.com/fwlink?linkid=288&clcid=0x409" TARGET="_blank"><IMG SRC="art/homenrm.gif" WIDTH=51 HEIGHT=38 BORDER=0 ALT="The Microsoft.com Speech website" ALIGN="right"></A>
+<FONT SIZE="+1">Microsoft Speech SDK</FONT> </P>
+SAPI 5.1
+<HR ALIGN="left" SIZE="1" WIDTH="100%" COLOR="#ff0000" NOSHADE>
+
+
+<H1>XML TTS Tutorial</H1>
+
+<h2>SAPI XML TTS for Application Developers</h2>
+
+<p>SAPI text-to-speech (TTS) extensible markup language (XML) tags fall into several categories.</p>
+
+<UL>
+<li><a href="#Voice_State_Control">Voice state control</a></li>
+<li><a href="#Direct_Item_Insertion">Direct item insertion</a></li>
+<li><a href="#Voice_Context_Control">Voice context control</a></li>
+<li><a href="#Voice_Selection">Voice selection</a></li>
+<li><a href="#Custom_Pronunciation">Custom Pronunciation</a></li>
+</UL>
+
+<a name="Voice_State_Control"></a>
+<h3>Voice state control tags</h3>
+
+<p>SAPI TTS XML supports five tags that control the state of the current voice: Volume, Rate, Pitch, Emph, and Spell.</p>
+<h3>Volume</h3>
+<p>The Volume tag controls the volume of a voice. The tag can be empty, in which case it applies to all subsequent text, or it can have content, in which case it only applies to that content.</p>
+
+<p>The Volume tag has one required attribute: Level. The value of this attribute should be an integer between zero and one hundred. Values outside of this range will be truncated.</p>
+
+<PRE><CODE>&lt;volume level="50"&gt;
+This text should be spoken at volume level fifty.
+
+   &lt;volume level="100"&gt;
+      This text should be spoken at volume level one hundred.
+   &lt;/volume>
+   
+&lt;/volume&gt;
+
+&lt;volume level="80"/&gt;
+All text which follows should be spoken at volume level eighty.
+</PRE></CODE>
+
+<p>One hundred represents the default volume of a voice. Lower values represent percentages of this default. That is, 50 corresponds to 50% of full volume.</p>
+
+<p>Values specified using the Volume tag will be combined with values specified programmatically (using ISpVoice::SetVolume). For example, if you combine a SetVolume( 50 ) call with a &lt;volume level="50"&gt; tag, the volume of the voice should be 25% of its full volume.</p>
+<h3>Rate</h3>
+<p>The Rate tag controls the rate of a voice. The tag can be empty, in which case it applies to all subsequent text, or it can have content, in which case it only applies to that content.</p>
+
+<p>The Rate tag has two attributes, Speed and AbsSpeed, one of which must be present. The value of both of these attributes should be an integer between negative ten and ten. Values outside of this range may be truncated by the engine (but are not truncated by SAPI). 
+The AbsSpeed attribute controls the absolute rate of the voice, so a value of ten always corresponds to a value of ten, a value of five always corresponds to a value of five.</p>
+
+<PRE><CODE>&lt;rate absspeed="5"&gt;
+   This text should be spoken at rate five.
+   &lt;rate absspeed="-5"&gt;
+      This text should be spoken at rate negative five.
+   &lt;/rate&gt;
+&lt;/rate&gt;
+&lt;rate absspeed="10"/&gt;
+</PRE></CODE>
+<p>All text which follows should be spoken at rate ten.</p>
+<h3>Speed</h3>
+<p>The Speed attribute controls the relative rate of the voice. The absolute value is found by adding each Speed to the current absolute value.</p>
+
+<PRE><CODE>&lt;rate speed="5"&gt;
+   This text should be spoken at rate five.
+      &lt;rate speed="-5"&gt;
+         This text should be spoken at rate zero.
+      &lt;/rate&gt;
+&lt;/rate&gt;
+</PRE></CODE>
+
+<p>Zero represents the default rate of a voice, with positive values being faster and negative values being slower. Values specified using the Rate tag will be combined with values specified programmatically (using ISpVoice::SetRate).</p>
+<h3>Pitch</h3>
+<p>The Pitch tag controls the pitch of a voice. The tag can be empty, in which case it applies to all subsequent text, or it can have content, in which case it only applies to that content.</p>
+
+<p>The Pitch tag has two attributes, Middle and AbsMiddle, one of which must be present.  The value of both of these attributes should be an integer between negative ten and ten. Values outside of this range may be truncated by the engine (but are not truncated by SAPI).</p>
+
+<p>The AbsMiddle attribute controls the absolute pitch of the voice, so a value of ten always corresponds to a value of ten, a value of five always corresponds to a value of five.</p>
+
+<PRE><CODE>&lt;pitch absmiddle="5"&gt;
+This text should be spoken at pitch five.
+   &lt;pitch absmiddle="-5"&gt;
+      This text should be spoken at pitch negative five.
+   &lt;/pitch&gt;
+&lt;/pitch&gt;
+&lt;pitch absmiddle="10"/&gt;
+</PRE></CODE>
+<p>All text which follows should be spoken at pitch ten.</p>
+
+<p>The Middle attribute controls the relative pitch of the voice. The absolute value is found by adding each Middle to the current absolute value.</p>
+
+<PRE><CODE>&lt;pitch middle="5"&gt;
+This text should be spoken at pitch five.
+   &lt;pitch middle="-5"&gt;
+      This text should be spoken at pitch zero.
+   &lt;/pitch&gt;
+&lt;/pitch&gt;
+</PRE></CODE>
+
+<p>Zero represents the default middle pitch for a voice, with positive values being higher and negative values being lower.</p>
+<h3>Emph</h3>
+<p>The Emph tag instructs the voice to emphasize a word or section of text. The Emph tag cannot be empty. The following word should be emphasized.</p>
+
+<PRE><CODE>&lt;emph&gt; boo &lt;/emph&gt;!</PRE></CODE>
+
+<p>The method of emphasis may vary from voice to voice.</p>
+<h3>Spell</h3>
+<p>The Spell tag forces the voice to spell out all text, rather than using its default word and sentence breaking rules, normalization rules, and so forth. All characters should be expanded to corresponding words (including punctuation, numbers, and so forth). The Spell tag cannot be empty.</p>
+
+<PRE><CODE>&lt;spell&gt;
+These words should be spelled out.
+&lt;/spell&gt;
+These words should not be spelled out.
+</PRE></CODE>
+
+<a name="Direct_Item_Insertion"></a>
+<h3>Direct item insertion tags</h3>
+
+<p>Three tags are supported that applications the ability to insert items directly at some level: Silence, Pron, and Bookmark.</p>
+<h3>Silence</h3>
+<p>The Silence tag inserts a specified number of milliseconds of silence into the output audio stream. This tag must be empty, and must have one attribute, Msec.</p>
+
+<PRE><CODE>Five hundred milliseconds of silence &lt;silence msec="500"/&gt; just occurred.</PRE></CODE>
+<h3>Pron</h3>
+<p>The Pron tag inserts a specified pronunciation. The voice will process the sequence of phonemes exactly as they are specified. This tag can be empty, or it can have content. If it does have content, it will be interpreted as providing the pronunciation for the enclosed text. That is, the enclosed text will not be processed as it normally would be.</p>
+
+<p>The Pron tag has one attribute, Sym, whose value is a string of white space separated phonemes.</p>
+
+<PRE><CODE>&lt;pron sym="h eh 1 l ow & w er 1 l d "/&gt;
+&lt;pron sym="h eh 1 l ow & w er 1 l d"&gt; hello world &lt;/pron&gt;
+</PRE></CODE>
+<h3>Bookmark</h3>
+<p>The Bookmark tag inserts a bookmark event into the output audio stream. Use this event to signal the application when the audio corresponding to the text at the Bookmark tag has been reached. The Bookmark tag must be empty.</p>
+
+<p>The Bookmark tag has one attribute, Mark, whose value is a string. This value can then be used to differentiate between bookmark events (each of which will contain the string value from their corresponding tag).</p>
+
+<p>The application will receive an event here,</p>
+<PRE><CODE>&lt;bookmark mark="bookmark_one"/&gt;</PRE></CODE>
+
+<p>and another one here </p>
+<PRE><CODE>&lt;bookmark mark="bookmark_two"/&gt;</PRE></CODE>
+<a name="Voice_Context_Control"></a>
+<h3>Voice context control tags</h3>
+
+<p>Two tags provide context to the current voice: PartOfSp and Context. Those tags enable the voice to determine how to deal with the text it is processing. With both of these tags, the extent to which voices use the context may vary.</p>
+<h3>PartOfSp</h3>
+<p>The PartOfSp tag provides the voice with the part of speech of the enclosed word(s). Use this tag to enable the voice to pronounce a word with multiple pronunciations correctly depending on its part of speech. The PartOfSp tag cannot be empty.</p>
+
+<p>The PartOfSp tag has one attribute, Part, which takes a string corresponding to a SAPI part of speech as its attribute. Only SAPI defined parts of speech are supported - "Unknown", "Noun", "Verb", "Modifier", "Function", "Interjection".</p>
+
+<PRE><CODE>&lt;partofsp part="noun"> A &lt;/partofsp> is the first letter of the alphabet.</PRE></CODE>
+
+<PRE><CODE>Did you &lt;partofsp part="verb"&gt; record &lt;/partofsp&gt; that &lt;partofsp part="noun"&gt; record &lt;/partofsp&gt;?
+</PRE></CODE>
+<h3>Context</h3>
+<p>The Context tag provides the voice with information which the voice may then use to determine how to normalize special items, like dates, numbers, and currency. Use this tag to enable the voice to distinguish between confusable date formats (see the example, below). The Context tag cannot be empty.</p>
+
+<p>The Context tag has one attribute, Id, which takes a string corresponding to the context of the enclosed text. Several contexts are defined by SAPI and are more likely to be recognized by SAPI compliant voices, but any string may be used. See documentation for a particular voice for more details.</p>
+
+<PRE><CODE>&lt;context id="date_mdy"&gt; 03/04/01 &lt;/context&gt; should be March fourth, two thousand one.
+&lt;context id="date_dmy"&gt; 03/04/01 &lt;/context> should be April third, two thousand one.
+&lt;context id="date_ymd"&gt; 03/04/01 &lt;/context&gt; should be April first, two thousand four.
+</PRE></CODE>
+
+<a name="Voice_Selection"></a>
+<h3>Voice Selection Tags</h3>
+<p>There are two tags which can be used (potentially) to change the current voice: Voice and Lang.</p>
+<h3>Voice</h3>
+<p>The Voice tag selects a voice based on its attributes, Age, Gender, Language, Name, Vendor, and VendorPreferred. The tag can be empty, in which case it changes the voice for all subsequent text, or it can have content, in which case it only changes the voice for that content.</p>
+
+<p>The Voice tag has two attributes: Required and Optional. These correspond exactly to the required and optional attributes parameters to <a lang="" href="../VB_SpObjectTokenCategory_EnumerateTokens.htm">ISpObjectTokenCategory_EnumerateTokens</a> and <a  href="../helper_spfindbesttoken.htm">SpFindBestToken</a> functions. The selected voice follows exactly the same rules as the latter of these two functions. That is, all the required attributes are present, and more optional attributes are present than with the other installed voices (if several voices have equal numbers of optional attributes one is selected at random). See <a href="tokensandregistrysettings.htm">Object Tokens and Registry Settings</a> for more details.</p>
+
+<p>In addition, the attributes of the current voice are always added as optional attributes when the Voice tag is used. This means that, a voice which is more similar to the current voice will be selected over one which is less similar.</p>
+
+<p>If no voice is found that matches all of the required attributes, no voice change will occur.</p>
+
+<p>The default voice should speak this sentence.</p>
+<PRE><CODE>&lt;voice required="Gender=Female;Age!=Child"&gt;</PRE></CODE>
+
+<p>A female non-child should speak this sentence, if one exists.</p>
+
+<PRE><CODE>&lt;voice required="Age=Teen"&gt;
+   A teen should speak this sentence - if a female, non-child teen is present, she will be selected over a male teen, for example.
+   &lt;/voice&gt;
+&lt;/voice&gt;
+</PRE></CODE>
+<h3>Lang</h3>
+<p>The Lang tag selects a voice based solely on its Language attribute. The tag can be empty, in which case it changes the voice for all subsequent text; or it can have content, in which case it only changes the voice for that content.</p>
+
+<p>The Lang tag has one attribute, LangId.  This attribute should be a LANGID, such as 409 (U.S. English) or 411 (Japanese). Note that these numbers are hexadecimal, but without the typical "0x".</p>
+
+<p>The Lang tag is a shortened version of the Voice tag with the Required attribute containing "Language=TTS_Engine". So the following examples should produce exactly the same results:</p>
+
+<PRE><CODE>&lt;voice required="Language=409"&gt;
+A U.S. English voice should speak this.
+&lt;/voice&gt;
+&lt;lang langid="409"&gt;
+   A U.S. English voice should speak this.
+&lt;/lang&gt;
+</PRE></CODE>
+
+<a name="Custom_Pronunciation"></a>
+<h2>Custom Pronunciation</h2>
+<p>An alternative to using the &lt;P&gt; tag with the DISP and PRON attributes is to use custom pronunciation. Using custom pronunciation, tags in the form of the following.</p>
+<PRE><CODE>&lt;P DISP="disp" PRON="pron"&gt;word&lt;/P&gt;</PRE></CODE>
+
+<p>can be written as</p>
+<PRE><CODE>&lt;P&gt;/disp/word/pron;&lt;/P&gt;
+</PRE></CODE>
+
+<p>More specifically, if you want to recognize the word hello only when it is pronounced as ah and display greeting when recognized, you would normally use something like the following.</p>
+<PRE><CODE>&lt;P DISP="greeting" PRON="ah"&gt;hello&lt;/P&gt;
+</PRE></CODE>
+
+<p>Using custom pronunciation, the above would translate to the following.</p>
+<PRE><CODE>&lt;P&gt;/greeting/hello/ah;&lt;/P&gt;
+</PRE></CODE>
+
+</BODY>
+</HTML>

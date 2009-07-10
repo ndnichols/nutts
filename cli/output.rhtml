@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>nutts output</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Nathan Nichols">
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/default/style.css"   type="text/css" charset="utf-8" media="screen"> 
+  
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/bright/style.css"   type="text/css" charset="utf-8" media="screen"> 
+  
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/dark/style.css"   type="text/css" charset="utf-8" media="screen"> 
+  
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/halloween/style.css"   type="text/css" charset="utf-8" media="screen"> 
+  
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/night/style.css"   type="text/css" charset="utf-8" media="screen"> 
+  
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/shiny/style.css"   type="text/css" charset="utf-8" media="screen"> 
+  
+  
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Bundles/Xcode.tmbundle/Support/css/default/style.css"   type="text/css" charset="utf-8" media="screen"> 
+    <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Bundles/Xcode.tmbundle/Support/css/default/print.css"   type="text/css" charset="utf-8" media="print"> 
+  
+  <link rel="stylesheet" href="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/default/print.css"   type="text/css" charset="utf-8" media="print"> 
+  <link rel="stylesheet" href="file:///Users/nate/Library/Application%20Support/TextMate/Themes/Webpreview/print.css"   type="text/css" charset="utf-8" media="print"> 
+  
+  <script src="file:///Applications/TextMate.app/Contents/SharedSupport/Support/script/default.js"    type="text/javascript" charset="utf-8"></script> 
+  <script src="file:///Applications/TextMate.app/Contents/SharedSupport/Support/script/webpreview.js" type="text/javascript" charset="utf-8"></script> 
+  <script src="file:///Applications/TextMate.app/Contents/SharedSupport/Support/script/sortable.js" type="text/javascript" charset="utf-8"></script> 
+  <script type="text/javascript" charset="utf-8"> 
+    var image_path = "file:///Applications/TextMate.app/Contents/SharedSupport/Support/images/";
+  </script> 
+</head>
+<body>
+    <body id="tm_webpreview_body" class="shiny"> 
+      <div id="tm_webpreview_header"> 
+        <img id="gradient" src="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/shiny/images/header.png" alt="header"> 
+        <p class="headline">nutts output</p> 
+        <p class="type">Xcode</p> 
+        <img id="teaser" src="file:///Applications/TextMate.app/Contents/SharedSupport/Support/themes/shiny/images/teaser.png" alt="teaser"> 
+        <div id="theme_switcher"> 
+          <form action="#" onsubmit="return false;"> 
+            <div> 
+              Theme:        
+              <select onchange="selectTheme(event);" id="theme_selector"> 
+                <optgroup label="TextMate"> 
+
+                  <option value="default" title="/Applications/TextMate.app/Contents/SharedSupport/Support/themes/">default</option> 
+
+                  <option value="bright" title="/Applications/TextMate.app/Contents/SharedSupport/Support/themes/">bright</option> 
+
+                  <option value="dark" title="/Applications/TextMate.app/Contents/SharedSupport/Support/themes/">dark</option> 
+
+                  <option value="halloween" title="/Applications/TextMate.app/Contents/SharedSupport/Support/themes/">halloween</option> 
+
+                  <option value="night" title="/Applications/TextMate.app/Contents/SharedSupport/Support/themes/">night</option> 
+
+                  <option value="shiny" title="/Applications/TextMate.app/Contents/SharedSupport/Support/themes/">shiny</option> 
+
+                </optgroup> 
+                <optgroup label="User"> 
+
+                </optgroup> 
+              </select> 
+            </div> 
+            <script type="text/javascript" charset="utf-8"> 
+              document.getElementById('theme_selector').value = 'shiny';
+            </script> 
+          </form> 
+        </div> 
+      </div>
+      <div id="tm_webpreview_content" class="shiny"> 
+          <div class="section_target" id="sect00001">
+              <span class="showhide"> 
+                  <a href="javascript:hideElement('in00001')" id="in00001_h" style="">&#x25BC;</a> 
+                  <a href="javascript:showElement('in00001')" id="in00001_s" style="display: none;">&#x25B6;</a>
+              </span>
+              <span class="action">nutts output for</span>
+              <%= text[0, 80] %>
+              <%= "..." if text.length > 80 %>
+              <% open_div = false %>
+              <br />
+              <div class="inner" id="in00001_b" style="">
+                <ul>
+                  <% output.each_with_index do |line, index| %>
+                      <% if line =~ /^\s*WORD/ %>
+                          <%= '</div></ul>' if open_div %>
+                          <span class="showhide"> 
+                            <%= "<a href=\"javascript:hideElement('word#{index}')\" id=\"word#{index}_h\" style=\"display: none;\">&#x25BC;</a>" %>
+                            <%= "<a href=\"javascript:showElement('word#{index}')\" id=\"word#{index}_s\" style=\"display: inline;\">&#x25B6;</a>" %>
+                          </span>
+                          <%= line.chomp %>
+                          <%= "<ul><div id=\"word#{index}_b\" style=\"display: none;\">" %>
+                          <% open_div = true %>
+                      <% else %>
+                        <li><%= line.chomp %></li>
+                      <% end %>
+                  <% end %>
+                </ul>
+              </div>
+          </div>
+      </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+The titular protagonist is a young boy born with horns whom his village considers a bad omen. #foo
+
+[[pmod 0]] Hello, world!   # bar
+Hello, world!
+[[pmod 250]] Hello, world!
+
+Here is a first sentence.  The titular protagonist is a young boy born with horns whom his village [[rate +250]] considers a bad omen. # fast at sentence
+Here is a first sentence, and the titular protagonist is a young boy born with horns whom his village [[rate +250]] considers a bad omen. # fast whole time
+Here is a first sentence. The titular protagonist is a [[rate 450]] young boy born with horns whom his village considers a bad omen.  [[rate 175.0]] Third sentence. # Trying to just speed up "young boy born with horns"
+Here is a first sentence. The titular protagonist is a.  young [[rate 450]] boy born with horns.  [[rate 175.0]] Whom his village considers a bad omen.  Third sentence. #Wow, what the hell.  If you change it to "The titular protoganist is a boy" it doesn't speed that up.  It is actually doing grammar in there?
+Here is a first sentence.  The titular protagonist is a young [[rate 450]] boy born with horns.  [[rate 175.0]] Whom his village considers a bad omen.  Third sentence. #Can I do that context stuff to keep the sound from dropping at protoganist?
+
+
+
+Here is a first sentence.  The titular protagonist is a "young" boy born with horns whom his village [[volm 2.0]] considers a bad omen. # fast at sentence
+Here is a first sentence, and the titular protagonist is a young boy born with horns whom his village [[volm 2.0]] considers a bad omen. # fast whole time
+
+
+~ 
+AA {D 120; P 176.9:0 171.4:22 161.7:61} 
+r {D 60; P 166.7:0} 
+~ 
+y {D 210; P 161.0:0} 
+UW {D 70; P 178.5:0} 
+_ 
+S {D 290; P 173.3:0 178.2:8 184.9:19 222.9:81} 
+1AX {D 280; P 234.5:0 246.1:39} 
+r {D 170; P 264.2:0} 
+~ 
+y {D 200; P 276.9:0 274.9:17 271.0:50} 
+UW {D 40; P 265.0:0 264.3:50} 
+_ 
+b {D 140; P 263.6:0 263.5:13 263.3:60} 
+r {D 110; P 263.1:0 260.4:43} 
+1UX {D 30; P 256.8:0 256.8:6} 
+S {D 190; P 256.1:0} 
+t {D 20; P 252.0:0 253.6:47} 
+~ 
+y {D 30; P 255.5:0 257.8:45} 
+AO {D 40; P 260.6:0 260.0:56} 
+r {D 40; P 259.5:0} 
+_ 
+t {D 190; P 251.3:0 250.0:16 245.9:68} 
+1IY {D 260; P 243.4:0 248.1:8 286.1:72 288.5:84} 
+T {D 220; P 291.6:0 262.8:27 220.0:67 184.8:100} 
+? {D 300} 
+[[inpt TEXT]] 
+CHAPTER3 
+TechniquesforCustomizingSynthesizedSpeech

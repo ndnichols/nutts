@@ -1,0 +1,14 @@
+Speech Commands
+PBAS:
+- Starts reporting itself really early, like at the beginning of the phrase
+- Seems to actually turn on at appropriate place and stay on until turned back, it's just reporting that's busted
+- "Here is a first sentence. The titular protagonist is [[pbas +10]] a young boy born with horns." starts reporting at "The", while "Here is a first sentence and the titular protagonist is [[pbas +10]] a young boy born with horns." starts reporting at "is"".
+PMOD:
+- Seems to be the same thing as PBAS
+- Ranges 0 - 200
+VOLM:
+- Ranges 0-2.0
+- Irritatingly enough, seems to bind tighter than PBAS and PMOD
+RATE:
+- Irritatingly enough, seems to actually follow what it says, goddamnit.
+    
